@@ -32,15 +32,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         for(ObjectError error : ex.getBindingResult().getAllErrors()) {
 
             String nome = ((FieldError) error).getField();
-
             String mensagem = messageSource.getMessage(error, LocaleContextHolder.getLocale());
-
             campos.add(new Problema.Campo(nome, mensagem));
 
         }
 
         Problema problema = new Problema();
-
         problema.setStatus(status.value());
         problema.setDataHora(LocalDateTime.now());
         problema.setTitulo("Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.");
